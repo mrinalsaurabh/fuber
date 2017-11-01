@@ -6,7 +6,7 @@
 
 (defn book-cabs [customer-id latitude longitude hippie?]
   (let [booked-cabs (ledger-data/get-cabs-in-trip)
-        booking-cab (cab-data/get-nearest-free-cabs booked-cabs longitude latitude)]
+        booking-cab (cab-data/get-nearest-free-cabs booked-cabs longitude latitude hippie?)]
         (if-not (nil? booking-cab) 
           (do 
             (ledger-data/add-new-ledgers customer-id (:number booking-cab))

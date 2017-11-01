@@ -7,7 +7,7 @@
 (deftest test-book-cabs
       (testing "Booking should go through when cabs are available"
             (with-redefs [ledger-data/get-cabs-in-trip (fn [] [])
-                          cab-data/get-nearest-free-cabs (fn [booked-cabs longitude latitude]
+                          cab-data/get-nearest-free-cabs (fn [booked-cabs longitude latitude hippie?]
                                                                   {:number "3", :driver-name "C" :color "Pink" 
                                                                   :location {:latitude 11.5 :longitude 13.5}})
                           ledger-data/add-new-ledgers (fn [customer-id cab-number])]
@@ -16,7 +16,7 @@
 
       (testing "Booking should go through when cabs are available"
             (with-redefs [ledger-data/get-cabs-in-trip (fn [] [])
-                         cab-data/get-nearest-free-cabs (fn [booked-cabs longitude latitude])]
+                         cab-data/get-nearest-free-cabs (fn [booked-cabs longitude latitude hippie?])]
                   (is (= (cabs-service/book-cabs 1 1 1 true) 
                         "No cabs found. Please try again later. ")))))
 
